@@ -1,2 +1,4 @@
-# llmgo-book
-Go和大语言模型编程
+# Go和大语言模型编程
+
+![](./cover.svg)
+
