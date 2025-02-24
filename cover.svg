@@ -10,13 +10,13 @@
 <polyline points="1,1 519,1 519,659 1,659 1,1" style="fill:none;stroke:black;stroke-width:1"/>
 
 <!-- 顶部横条 -->
-<rect x="50" y="1" width="420" height="20" style="fill:DodgerBlue;stroke:none;"/>
+<rect x="50" y="1" width="420" height="20" style="fill:LightSeaGreen;stroke:none;"/>
 
 <!-- 系列图书 -->
-<text x="190" y="40" fill="black" font-style="italic" font-size="20px">大模型挖坑系列</text>
+<text x="170" y="40" fill="black" font-style="italic" font-size="20px">大语言模型挖坑系列</text>
 
 <!-- 标题横条 -->
-<rect x="50" y="80" width="420" height="150" style="fill:DodgerBlue;stroke:none;"/>
+<rect x="50" y="80" width="420" height="150" style="fill:LightSeaGreen;stroke:none;"/>
 
 <!-- 主标题 -->
 <text x="65" y="180" fill="white" font-size="42px" font-weight="bold">Go和大语言模型编程</text>
