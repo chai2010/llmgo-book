@@ -1,6 +1,0 @@
-[book]
-title = "Go和大语言模型编程"
-authors = ["柴树杉"]
-language = "zh"
-multilingual = false
-src = "."
