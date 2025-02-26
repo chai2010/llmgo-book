@@ -20,7 +20,8 @@ REST服务返回的是JSON格式的数据，格式化后完整的数据如下：
       "name":"deepseek-r1:1.5b",
       "model":"deepseek-r1:1.5b",
       "modified_at":"2025-02-09T16:23:27.221768541+08:00",
-      "size":1117322599,"digest":"a42b25d8c10a841bd24724309898ae851466696a7d7f3a0a408b895538ccbc96",
+      "size":1117322599,
+      "digest":"a42b25d8c10a841bd24724309898ae851466696a7d7f3a0a408b895538ccbc96",
       "details": {
         "parent_model":"",
         "format":"gguf",
