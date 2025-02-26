@@ -70,9 +70,16 @@ success
 /bye
 ```
 
-也可以通过`ollama pull deepseek-r1:1.5b`命令只下载模型。
+也可以通过`ollama pull deepseek-r1:1.5b`命令只下载模型。下载后可以通过`ollama list`查看本地有哪些模型：
 
-## 1.2 执行大模型
+```
+$ ollama list
+NAME                ID              SIZE      MODIFIED    
+deepseek-r1:1.5b    a42b25d8c10a    1.1 GB    2 weeks ago    
+$
+```
+
+## 1.2 运行大模型
 
 `ollama run`命令可以直接执行：
 
@@ -92,5 +99,28 @@ $
 这其实是一个命令行客户端，客户端将指令发送到本地的ollama后台服务进程，然后就返回的结果显示在命令行界面。
 
 我们终于可以自己跑大语言模型了：不仅不花钱也不怕断网，关键是草根码农在前AI时代也能持有一点点的生产资料。
+
+## 1.3 停止运行大模型
+
+当我们退出`ollama run`命令后，模型依然会在后台运行。可以通过`ollama ps`命令查看运行的模型：
+
+```
+$ ollama ps
+NAME                ID              SIZE      PROCESSOR    UNTIL
+deepseek-r1:1.5b    a42b25d8c10a    1.6 GB    100% CPU     3 minutes from now
+$
+```
+
+因为运行模型需要大量的CPU资料，因此不需要的话最好通过`ollama stop`命令停止：
+
+```
+$ ollama stop deepseek-r1:1.5b
+$ ollama ps
+NAME    ID    SIZE    PROCESSOR    UNTIL 
+$
+```
+
+停止后再执行`ollama ps`就看不到了。
+
 
 
