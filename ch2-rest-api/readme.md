@@ -303,3 +303,89 @@ $ curl -X POST http://localhost:11434/v1/chat/completions \
 
 从这里可以看出，基于大模型的应用可以通过调整真实的用户聊天的上下文来影响最终的回答。有时候可以改进体验，有时候也可能被用于构建信息茧房。
 
+## 2.5 Go语言访问REST服务
+
+现在用Go语言连接REST服务。首先构造请求数据：
+
+```go
+func main() {
+	// 构造请求体
+	requestData := map[string]any{
+		"model": "deepseek-r1:1.5b",
+		"messages": []map[string]any{
+			{"role": "user", "content": "你好，今天怎么样？"},
+			{"role": "assistant", "content": "你好呀！我今天很好，谢谢！"},
+			{"role": "user", "content": "你做了什么？"},
+			{"role": "assistant", "content": "我今天一直在和你聊天！"},
+			{"role": "user", "content": "那我们继续聊吧！"},
+		},
+		"temperature": 0.7,
+		"max_tokens":  150,
+	}
+
+	// 将请求体序列化为JSON
+	jsonData, err := json.Marshal(requestData)
+	if err != nil {
+		log.Fatalf("无法序列化请求数据: %v", err)
+	}
+
+	...
+}
+```
+
+然后以POST方式发出请求并读取响应数据：
+
+```go
+func main() {
+	...
+	// 创建 POST 请求
+	url := "http://localhost:11434/v1/chat/completions"
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
+	if err != nil {
+		log.Fatalf("无法创建请求: %v", err)
+	}
+
+	// 设置请求头
+	req.Header.Set("Content-Type", "application/json")
+
+	// 发送请求
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatalf("请求失败: %v", err)
+	}
+	defer resp.Body.Close()
+
+	// 读取响应数据
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalf("读取响应失败: %v", err)
+	}
+	...
+}
+```
+
+最后是解码收到的回答：
+
+```go
+func main() {
+	...
+	// 解析响应数据
+	var result struct {
+		Choices []struct {
+			Message struct {
+				Role    string `json:"role"`
+				Content string `json:"content"`
+			} `json:"message"`
+		} `json:"choices"`
+	}
+	if err = json.Unmarshal(body, &result); err != nil {
+		log.Fatalf("解码响应失败: %v", err)
+	}
+
+	fmt.Println(result.Choices[0].Message.Content)
+}
+```
+
+以上的代码虽然比较简陋，但是和其他SDK的工作原理类似，最底层都是通过POST调用大模型服务获取结果。
+
