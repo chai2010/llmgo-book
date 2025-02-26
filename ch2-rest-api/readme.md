@@ -35,7 +35,7 @@ REST服务返回的是JSON格式的数据，格式化后完整的数据如下：
 }
 ```
 
-## 2.2 聊天API
+## 2.2 通过API和大模型聊天
 
 如果想和大模型聊天，可以采用OpenAI风格的REST接口。创建request.json文件如下：
 
@@ -100,4 +100,112 @@ POST请求的API地址为`/v1/chat/completions`，通过`-H`指定请求文件�
 > 另外，语气
 
 OpenAI的REST接口风格已经成为事实上的标准，通过类似的方式不仅仅可以连接OpenAI服务，甚至也可以连接DeepSeek提供的服务。
+
+## 2.3 聊天的上下文
+
+要通过`curl`实现多轮聊天，你需要在每次请求时将之前的对话历史（即消息）传递给模型，以便模型能够基于上下文生成合理的回答。`ollama` 的 API 会将整个对话历史作为请求的一部分，以便生成基于上下文的响应。
+
+在每次与模型对话时，你将之前的用户和助手消息一并发送给 API，这样模型就能理解对话的上下文。假设你已经启动了 `ollama` 的 API，并且模型在 `localhost:11434` 上运行。以下是一个多轮聊天的示例。
+
+### 2.3.1 第一次对话
+
+在第一次发送请求时，你的 `request.json` 文件可能是这样的：
+
+```json
+{
+  "model": "deepseek-r1:1.5b",
+  "messages": [
+    {"role": "user", "content": "你好，今天怎么样？"}
+  ]
+}
+```
+
+第一次请求时，我们会发送一个用户的消息：
+
+```bash
+$ curl -X POST http://localhost:11434/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d @request.json
+```
+
+假设模型的回应如下：
+
+```json
+{
+  "choices": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": "你好呀！我今天很好，谢谢！"
+      }
+    }
+  ]
+}
+```
+
+### 2.3.2 进行第二轮对话
+
+在第二轮对话中，你需要将用户的消息和模型的回应一并添加到 `messages` 数组中。例如，用户接着问：“你做了什么？”：
+
+更新后的 `request.json` 文件：
+
+```json
+{
+  "model": "deepseek-r1:1.5b",
+  "messages": [
+    {"role": "user", "content": "你好，今天怎么样？"},
+    {"role": "assistant", "content": "你好呀！我今天很好，谢谢！"},
+    {"role": "user", "content": "你做了什么？"}
+  ]
+}
+```
+
+然后，发送第二轮请求：
+
+```bash
+$ curl -X POST http://localhost:11434/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d @request.json
+```
+
+模型将基于所有历史消息（包括助手的回应）来生成回答。例如，模型可能会回应：
+
+```json
+{
+  "choices": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": "我今天一直在和你聊天！"
+      }
+    }
+  ]
+}
+```
+
+### 2.3.3 第三轮对话
+
+如果用户继续提问，可以像之前一样更新 `request.json` 文件，逐步将对话历史传递给模型。更新后的 `request.json` 文件（第三轮对话）：
+
+```json
+{
+  "model": "deepseek-r1:1.5b",
+  "messages": [
+    {"role": "user", "content": "你好，今天怎么样？"},
+    {"role": "assistant", "content": "你好呀！我今天很好，谢谢！"},
+    {"role": "user", "content": "你做了什么？"},
+    {"role": "assistant", "content": "我今天一直在和你聊天！"},
+    {"role": "user", "content": "那我们继续聊吧！"}
+  ]
+}
+```
+
+然后再发送：
+
+```bash
+$ curl -X POST http://localhost:11434/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d @request.json
+```
+
 
