@@ -9,14 +9,12 @@ gopher-base64:
 build:
 	-rm book
 	wabook build
-	make -C en build
 	-rm book/.gitignore
 	-rm -rf book/.git
 
 deploy:
 	-rm book
 	wabook build
-	make -C en build
 	-rm book/.gitignore
 	-rm -rf book/.git
 
