@@ -1,0 +1,12 @@
+{
+	"model": "deepseek-r1:1.5b",
+	"messages": [
+		{"role": "user", "content": "你好，今天怎么样？"},
+		{"role": "assistant", "content": "您好！感觉怎么样呢？如果您有任何问题或需要帮助的地方，请随时告诉我。我会尽力为您提供更好的服务。！"},
+		{"role": "user", "content": "你做了什么？"},
+		{"role": "assistant", "content": "好的，现在我们可以先专注于当前的问题和相关回复。如果还有其他问题需要我帮忙解答的，请随时告诉我。我们共同进步，一起成长！"},
+		{"role": "user", "content": "那我们继续聊吧！"}
+	],
+	"temperature": 0.7,
+	"max_tokens": 150
+}
