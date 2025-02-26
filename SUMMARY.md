@@ -3,4 +3,5 @@
 [Go和大语言模型编程](index.md)
 [前言](preface.md)
 
-- [Chapter 1](./src/chapter_1.md)
+- [你好，Ollama](./ch1-hello-llm/readme.md)
+- [访问REST服务](./ch2-rest-api/readme.md)
