@@ -308,6 +308,13 @@ $ curl -X POST http://localhost:11434/v1/chat/completions \
 现在用Go语言连接REST服务。首先构造请求数据：
 
 ```go
+package main
+
+import (
+	"encoding/json"
+	"log"
+)
+
 func main() {
 	// 构造请求体
 	requestData := map[string]any{
@@ -336,6 +343,15 @@ func main() {
 然后以POST方式发出请求并读取响应数据：
 
 ```go
+package main
+
+import (
+	"encoding/json"
+	"io"
+	"log"
+	"net/http"
+)
+
 func main() {
 	...
 	// 创建 POST 请求
