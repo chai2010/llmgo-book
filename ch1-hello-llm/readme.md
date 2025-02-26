@@ -8,7 +8,6 @@
 
 Ollama通过CGO技术集成了一些C/C++库，他支持 Llama 2、Mistral、Gemma、DeepSeek 等模型，且支持 CPU 和 GPU 加速。首先去官网 [https://ollama.com/](https://ollama.com/) 下载安装包安装。macOS操作系统安装过程如图：
 
-ch1-hello-llm/images /ch1.1-1-ollama.png
 ![](./images/ch1.1-1-ollama.png)
 
 安装完成后在命令行查看`ollama`命令帮助。
