@@ -282,4 +282,44 @@ $ go run .
 
 简单来说，多轮对话会让大模型以深度思考模式工作。这里就不展示集成到Web聊天程序的细节了。
 
+## 3.5 二进制文件
+
+也可以通过`llms.BinaryPart()`函数传入二进制数据。比如希望让大模型描述以下图片：
+
+![](./images/ch3.4-llama.png)
+
+传入大模型的请求数据如下： 
+
+```go
+//go:embed llama.png
+var llamaImageData []byte
+
+func main() {
+	...
+	requestContent := []llms.MessageContent{
+		llms.MessageContent{
+			Role: llms.ChatMessageTypeHuman,
+			Parts: []llms.ContentPart{
+				llms.BinaryPart("image/png", llamaImageData),
+			},
+		},
+		llms.MessageContent{
+			Role: llms.ChatMessageTypeHuman,
+			Parts: []llms.ContentPart{
+				llms.TextContent{Text: "What's in this image?"},
+			},
+		},
+	}
+	...
+}
+```
+
+执行输出如下：
+
+```
+$ go run main.go 
+I'm unable to view or process images directly. However, if you can describe the image to me, I’d be happy to help analyze and answer your questions!
+```
+
+虽然我们本地测试的小模型还不能很好地理解图片，但是API的工作方式是类似的。
 
