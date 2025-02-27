@@ -25,7 +25,7 @@ func main() {
 		scanner.Scan()
 		input := scanner.Text()
 
-		// 如果输入的是 'exit'，退出循环
+		// 如果输入的是 '/bye'，退出循环
 		if strings.ToLower(input) == "/bye" {
 			break
 		}
