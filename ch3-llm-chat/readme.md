@@ -318,7 +318,8 @@ func main() {
 
 ```
 $ go run main.go 
-I'm unable to view or process images directly. However, if you can describe the image to me, I’d be happy to help analyze and answer your questions!
+I'm unable to view or process images directly. However, if you can describe
+the image to me, I’d be happy to help analyze and answer your questions!
 ```
 
 虽然我们本地测试的小模型还不能很好地理解图片，但是API的工作方式是类似的。
