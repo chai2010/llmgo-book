@@ -1,0 +1,10 @@
+{
+	"model": "deepseek-r1:1.5b",
+	"messages": [
+		{"role": "user", "content": "你好，今天怎么样？"},
+		{"role": "assistant", "content": "您好！感觉怎么样呢？如果您有任何问题或需要帮助的地方，请随时告诉我。我会尽力为您提供更好的服务。！"},
+		{"role": "user", "content": "你做了什么？"}
+	],
+	"temperature": 0.7,
+	"max_tokens": 150
+}

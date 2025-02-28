@@ -1,0 +1,8 @@
+{
+	"model": "deepseek-r1:1.5b",
+	"messages": [
+		{"role": "user", "content": "请帮我写一封邮件给老板，告诉他我明天不能来上班。"}
+	],
+	"temperature": 0.7,
+	"max_tokens": 150
+}
