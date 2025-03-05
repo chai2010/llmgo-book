@@ -192,6 +192,7 @@ $ curl -X POST -H "Content-Type: application/json" -d '{"prompt": "hi"}' http://
 
 ```
 $ curl -X POST -H "Content-Type: application/json" -d '{"prompt": "turn me into an embedding"}' http://localhost:8080/embedding
+{"embedding":[1.6663613,-2.8487935,1.8253331,-1.123977,...,0.95781755]}
 ```
 
 ## 5.2 通过程序加载模型
