@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using https://github.com/wa-lang/wabook -->
+        <meta charset="UTF-8">
+        <title>大模型文件结构 - Go和大语言模型编程</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../static/wabook/css/variables.css">
+        <link rel="stylesheet" href="../static/wabook/css/general.css">
+        <link rel="stylesheet" href="../static/wabook/css/chrome.css">
+        <link rel="stylesheet" href="../static/wabook/css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../static/wabook/FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../static/wabook/fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../static/wabook/highlight.css">
+        <link rel="stylesheet" href="../static/wabook/tomorrow-night.css">
+        <link rel="stylesheet" href="../static/wabook/ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('wabook-theme');
+                var sidebar = localStorage.getItem('wabook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('wabook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('wabook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('wabook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('wabook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter">
+  <li class="chapter-item expanded ">
+    <a href="../index.html" >Go和大语言模型编程</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../preface.html" >前言</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch1-hello-llm/readme.html" ><strong aria-hidden="true">1.</strong> 你好，Ollama</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch2-rest-api/readme.html" ><strong aria-hidden="true">2.</strong> 访问REST服务</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch3-llm-chat/readme.html" ><strong aria-hidden="true">3.</strong> LLM聊天机器人</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch4-modelfile/readme.html" class="active"><strong aria-hidden="true">4.</strong> 大模型文件结构</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch5-loadmodel/readme.html" ><strong aria-hidden="true">5.</strong> 手动加载模型文件</a>
+  </li>
+</ol>
+
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                    </div>
+
+                    <h1 class="menu-title"><a href="../index.html">Go和大语言模型编程</a></h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/chai2010/llmgo-book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/chai2010/llmgo-book/edit/master/ch4-modelfile/readme.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <!-- Page table of contents -->
+                    <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                    <main>
+                        
+
+                        <h1>4. 大模型文件结构</h1>
+<p>前文已经通过ollama命令下载、执行大模型，并且构建了一个大模型的应用。本章尝试分析大模型文件结构。</p>
+<h2>4.1 大模型下载到哪里了？</h2>
+<p>可以通过<code>ollama pull</code>命令下载大模型，以下还是deepseek的例子：</p>
+<pre><code>$ ollama pull deepseek-r1:1.5b
+pulling manifest 
+pulling aabd4debf0c8...   3% ▕                ▏  27 MB/1.1 GB  3.0 MB/s   5m57s
+...
+</code></pre>
+<p>下载完成后可以通过<code>ollama show</code>查看大模型的一些信息：</p>
+<pre><code>$ ollama show deepseek-r1:1.5b
+  Model
+    architecture        qwen2
+    parameters          1.8B
+    context length      131072
+    embedding length    1536
+    quantization        Q4_K_M
+
+  Parameters
+    stop    &quot;&lt;｜begin▁of▁sentence｜&gt;&quot;
+    stop    &quot;&lt;｜end▁of▁sentence｜&gt;&quot;
+    stop    &quot;&lt;｜User｜&gt;&quot;
+    stop    &quot;&lt;｜Assistant｜&gt;&quot;
+
+  License
+    MIT License
+    Copyright (c) 2023 DeepSeek
+</code></pre>
+<p>根据Ollama文档，不同操作系统下载的目录类似：</p>
+<ul>
+<li>macOS: <code>~/.ollama/models</code></li>
+<li>Linux: <code>/usr/share/ollama/.ollama/models</code></li>
+<li>Windows: <code>C:\Users\%username%\.ollama\models</code></li>
+</ul>
+<p>下面是macOS系统下载deepseek后的文件：</p>
+<pre><code>$ tree ~/.ollama/models
+/Users/chai/.ollama/models
+├── blobs
+│   ├── sha256-369ca498f347f710d068cbb38bf0b8692dd3fa30f30ca2ff755e211c94768150
+│   ├── sha256-6e4c38e1172f42fdbff13edf9a7a017679fb82b0fde415a3e8b3c31c6ed4a4e4
+│   ├── sha256-a85fe2a2e58e2426116d3686dfdc1a6ea58640c1e684069976aa730be6c1fa01
+│   ├── sha256-aabd4debf0c8f08881923f2c25fc0fdeed24435271c2b3e92c4af36704040dbc
+│   └── sha256-f4d24e9138dd4603380add165d2b0d970bef471fac194b436ebd50e6147c6588
+└── manifests
+    └── registry.ollama.ai
+        └── library
+            └── deepseek-r1
+                └── 1.5b
+
+6 directories, 6 files
+</code></pre>
+<p>其中<code>blobs</code>目录下是以SHA256命名保存具体数据，<code>manifests</code>是各个模型的主文件。<code>manifests</code>目录下的文件以<code>{host}/{namespace}/{model}/{tag}</code>形式的路径组织，比如<code>registry.ollama.ai</code>是Ollama自己的托管平台地址、<code>library</code>对应大模型的名字空间、<code>deepseek-r1:1.5b</code>则是具体的模型和Tag版本号</p>
+<h2>4.2 manifest文件</h2>
+<p>通过以下命令查看：</p>
+<pre><code>$ cat ~/.ollama/models/manifests/registry.ollama.ai/library/deepseek-r1/1.5b
+...
+</code></pre>
+<p>这是JSON格式的数据，格式化后如下：</p>
+<pre><code class="language-json">{
+  &quot;schemaVersion&quot;: 2,
+  &quot;mediaType&quot;: &quot;application/vnd.docker.distribution.manifest.v2+json&quot;,
+  &quot;config&quot;: {
+    &quot;mediaType&quot;: &quot;application/vnd.docker.container.image.v1+json&quot;,
+    &quot;digest&quot;: &quot;sha256:a85fe2a2e58e2426116d3686dfdc1a6ea58640c1e684069976aa730be6c1fa01&quot;,
+    &quot;size&quot;: 487
+  },
+  &quot;layers&quot;: [
+    {
+      &quot;mediaType&quot;: &quot;application/vnd.ollama.image.model&quot;,
+      &quot;digest&quot;: &quot;sha256:aabd4debf0c8f08881923f2c25fc0fdeed24435271c2b3e92c4af36704040dbc&quot;,
+      &quot;size&quot;: 1117320512
+    },
+    {
+      &quot;mediaType&quot;: &quot;application/vnd.ollama.image.template&quot;,
+      &quot;digest&quot;: &quot;sha256:369ca498f347f710d068cbb38bf0b8692dd3fa30f30ca2ff755e211c94768150&quot;,
+      &quot;size&quot;: 387
+    },
+    {
+      &quot;mediaType&quot;: &quot;application/vnd.ollama.image.license&quot;,
+      &quot;digest&quot;: &quot;sha256:6e4c38e1172f42fdbff13edf9a7a017679fb82b0fde415a3e8b3c31c6ed4a4e4&quot;,
+      &quot;size&quot;: 1065
+    },
+    {
+      &quot;mediaType&quot;: &quot;application/vnd.ollama.image.params&quot;,
+      &quot;digest&quot;: &quot;sha256:f4d24e9138dd4603380add165d2b0d970bef471fac194b436ebd50e6147c6588&quot;,
+      &quot;size&quot;: 148
+    }
+  ]
+}
+</code></pre>
+<p>这是类似Docker镜像的分层组织的文件系统。其中有4个包含sha256信息的文件在blobs目录保存：</p>
+<pre><code>$ ls ~/.ollama/models/blobs
+sha256-369ca498f347f710d068cbb38bf0b8692dd3fa30f30ca2ff755e211c94768150
+sha256-6e4c38e1172f42fdbff13edf9a7a017679fb82b0fde415a3e8b3c31c6ed4a4e4
+sha256-a85fe2a2e58e2426116d3686dfdc1a6ea58640c1e684069976aa730be6c1fa01
+sha256-aabd4debf0c8f08881923f2c25fc0fdeed24435271c2b3e92c4af36704040dbc
+sha256-f4d24e9138dd4603380add165d2b0d970bef471fac194b436ebd50e6147c6588
+$
+</code></pre>
+<h2>4.3 配置参数</h2>
+<p>manifst文件的&quot;config&quot;字段是配置文件的索引信息：</p>
+<pre><code class="language-json">  &quot;config&quot;: {
+    &quot;mediaType&quot;: &quot;application/vnd.docker.container.image.v1+json&quot;,
+    &quot;digest&quot;: &quot;sha256:a85fe2a2e58e2426116d3686dfdc1a6ea58640c1e684069976aa730be6c1fa01&quot;,
+    &quot;size&quot;: 487
+  }
+</code></pre>
+<p>根据sha256信息在blobs目录找到对应的文件，内容如下：</p>
+<pre><code class="language-json">{
+  &quot;model_format&quot;:&quot;gguf&quot;,
+  &quot;model_family&quot;:&quot;qwen2&quot;,
+  &quot;model_families&quot;:[&quot;qwen2&quot;],
+  &quot;model_type&quot;:&quot;1.8B&quot;,
+  &quot;file_type&quot;:&quot;Q4_K_M&quot;,
+  &quot;architecture&quot;:&quot;amd64&quot;,
+  &quot;os&quot;:&quot;linux&quot;,
+  &quot;rootfs&quot;:{
+    &quot;type&quot;:&quot;layers&quot;,
+    &quot;diff_ids&quot;:[
+      &quot;sha256:aabd4debf0c8f08881923f2c25fc0fdeed24435271c2b3e92c4af36704040dbc&quot;,
+      &quot;sha256:369ca498f347f710d068cbb38bf0b8692dd3fa30f30ca2ff755e211c94768150&quot;,
+      &quot;sha256:6e4c38e1172f42fdbff13edf9a7a017679fb82b0fde415a3e8b3c31c6ed4a4e4&quot;,
+      &quot;sha256:f4d24e9138dd4603380add165d2b0d970bef471fac194b436ebd50e6147c6588&quot;
+    ]
+  }
+}
+</code></pre>
+<p>很多是<code>ollama show</code>命令显示的内容，对应模型的基本信息。其中“rootfs”字段表示的是层级文件系统的信息，和manifst文件的“layers”字段是一致的。在“rootfs”文件系统中第一个文件就是最重要的大模型文件，其他都是一些可选的扩展文件。</p>
+
+
+                        
+
+                        
+
+                        
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../ch3-llm-chat/readme.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                            <!-- ../ch5-loadmodel/readme.html -->
+                            <a rel="next" href="../ch5-loadmodel/readme.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../ch3-llm-chat/readme.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                
+                    <a rel="next" href="../ch5-loadmodel/readme.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../static/wabook/mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../static/wabook/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../static/wabook/highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../static/wabook/book.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script type="text/javascript" charset="utf-8">
+            var pagePath = "ch4-modelfile/readme.md"
+        </script>
+
+        <!-- Custom JS scripts -->
+        
+
+    </body>
+</html>

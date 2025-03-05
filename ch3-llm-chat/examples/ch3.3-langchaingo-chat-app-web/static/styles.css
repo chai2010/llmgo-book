@@ -1,0 +1,129 @@
+:root {
+  --primary-0: #727474b1;
+  --primary-1: #696b6bd6;
+  --secondary-0: #fafbfbf2;
+  --gray-0: #f8f9fa;
+  --gray-5: #adb5bd;
+  --gray-6: #868e96;
+  --logo-h: 5.625rem;
+  --bs-secondary-color: var(--gray-5);
+  --bs-font-sans-serif: Inter, sans-serif;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  background-image: linear-gradient(180deg, #fafbfbf2, #ffffff);
+  background-repeat: no-repeat;
+  background-size: auto 40%;
+  background-attachment: fixed;
+}
+
+@media screen and (min-width: 660px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.logo {
+  --logo-h: 10.625rem;
+  position: absolute;
+  width: auto;
+  top: 45%;
+  left: 50%;
+  transition: all 0.4s ease;
+  transform: translate(-50%, -50%);
+  height: var(--logo-h);
+}
+
+.logo.active {
+  --logo-h: 3.625rem;
+  left: 0;
+  top: 1.5rem;
+  transform: translate(0, 0);
+}
+
+.logo-wrapper:has(.logo.active) {
+  height: var(--logo-h);
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--secondary-0);
+  box-shadow: 1px 8px 18px var(--secondary-0);
+}
+
+.btn-send {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--gray-5);
+  border: 0;
+}
+
+.prompt-message {
+  background-color: var(--secondary-0);
+  border: 1px solid var(--primary-1);
+  border-radius: var(--bs-border-radius-lg);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  position: relative;
+  padding: 1.5rem 2rem;
+  font-weight: 500;
+}
+
+.response-message {
+  background-color: var(--gray-0);
+  border-radius: var(--bs-border-radius-lg);
+  margin-bottom: 1rem;
+  padding: 2rem;
+}
+
+.prompt-input {
+  border-radius: var(--bs-border-radius-lg);
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.prompt-input:focus,
+.prompt-input:not(:placeholder-shown) {
+  border-color: var(--primary-0);
+  outline: none;
+  box-shadow: 0 0 0 1px var(--primary-0);
+}
+
+.chat-container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+.prompt-input-wrapper:has(.prompt-input:not(:placeholder-shown)) .btn-send {
+  background-color: var(--primary-0);
+}
+
+.message-loader {
+  --bs-spinner-border-width: 2px;
+  --bs-spinner-width: 1.5rem;
+  --bs-spinner-height: 1.5rem;
+  position: absolute;
+  top: 50%;
+  right: 2rem;
+  margin-top: -0.75rem;
+  color: var(--primary-0);
+}
+
+.timer {
+  font-size: 0.9rem;
+  color: var(--gray-5);
+}
+
+textarea.form-control {
+  min-height: 0;
+  height: 3.8rem;
+}

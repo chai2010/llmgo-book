@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using https://github.com/wa-lang/wabook -->
+        <meta charset="UTF-8">
+        <title>你好，Ollama - Go和大语言模型编程</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../static/wabook/css/variables.css">
+        <link rel="stylesheet" href="../static/wabook/css/general.css">
+        <link rel="stylesheet" href="../static/wabook/css/chrome.css">
+        <link rel="stylesheet" href="../static/wabook/css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../static/wabook/FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../static/wabook/fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../static/wabook/highlight.css">
+        <link rel="stylesheet" href="../static/wabook/tomorrow-night.css">
+        <link rel="stylesheet" href="../static/wabook/ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('wabook-theme');
+                var sidebar = localStorage.getItem('wabook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('wabook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('wabook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('wabook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('wabook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter">
+  <li class="chapter-item expanded ">
+    <a href="../index.html" >Go和大语言模型编程</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../preface.html" >前言</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch1-hello-llm/readme.html" class="active"><strong aria-hidden="true">1.</strong> 你好，Ollama</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch2-rest-api/readme.html" ><strong aria-hidden="true">2.</strong> 访问REST服务</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch3-llm-chat/readme.html" ><strong aria-hidden="true">3.</strong> LLM聊天机器人</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch4-modelfile/readme.html" ><strong aria-hidden="true">4.</strong> 大模型文件结构</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch5-loadmodel/readme.html" ><strong aria-hidden="true">5.</strong> 手动加载模型文件</a>
+  </li>
+</ol>
+
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                    </div>
+
+                    <h1 class="menu-title"><a href="../index.html">Go和大语言模型编程</a></h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/chai2010/llmgo-book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/chai2010/llmgo-book/edit/master/ch1-hello-llm/readme.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <!-- Page table of contents -->
+                    <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                    <main>
+                        
+
+                        <h1>1. 你好，Ollama</h1>
+<p>大语言模型服务的构建其实很简单，只要老实返回“服务器繁忙，请稍后重试”就能吓唬住铁粉。但是启动个本地大语言模型就减少了被耍猴的风险，因此我们首先用Go语言开发的Ollama来在本地启动一个迷你版大语言模型。</p>
+<h2>1.1 安装Ollama</h2>
+<p>和当年的Docker类似，Ollama也是Go语言开发的轻量级的本地大模型（LLM）运行框架。Ollama的名字来源于&quot;Llama&quot;（美洲羊驼），但在开头加了一个字母&quot;O&quot;可能表示Open（开放）或Offline（离线）的意思。Ollama的Logo和吉祥物也是一个美洲羊驼。</p>
+<p>Ollama通过CGO技术集成了一些C/C++库，他支持 Llama 2、Mistral、Gemma、DeepSeek 等模型，且支持 CPU 和 GPU 加速。首先去官网 <a href="https://ollama.com/">https://ollama.com/</a> 下载安装包安装。macOS操作系统安装过程如图：</p>
+<p><img src="./images/ch1.1-1-ollama.png" alt=""></p>
+<p>安装完成后在命令行查看<code>ollama</code>命令帮助。</p>
+<pre><code>$ ollama -h
+Large language model runner
+
+Usage:
+  ollama [flags]
+  ollama [command]
+
+Available Commands:
+  serve       Start ollama
+  create      Create a model from a Modelfile
+  show        Show information for a model
+  run         Run a model
+  stop        Stop a running model
+  pull        Pull a model from a registry
+  push        Push a model to a registry
+  list        List models
+  ps          List running models
+  cp          Copy a model
+  rm          Remove a model
+  help        Help about any command
+
+Flags:
+  -h, --help      help for ollama
+  -v, --version   Show version information
+
+Use &quot;ollama [command] --help&quot; for more information about a command.
+</code></pre>
+<h2>1.2 下载大模型</h2>
+<p>打开Ollame的大模型库页面 <a href="https://ollama.com/library/deepseek-r1">https://ollama.com/library/deepseek-r1</a>，找到最小的DeepSeek模型执行：</p>
+<pre><code>$ ollama run deepseek-r1:1.5b
+pulling manifest 
+pulling aabd4debf0c8...   3% ▕                ▏  27 MB/1.1 GB  3.0 MB/s   5m57s
+...
+</code></pre>
+<p><code>deepseek-r1:1.5b</code>只有1.1 GB大小，下载完成后就直接进入了对话模式：</p>
+<pre><code>$ ollama run deepseek-r1:1.5b
+pulling manifest 
+pulling aabd4debf0c8... 100% ▕================▏ 1.1 GB
+pulling 369ca498f347... 100% ▕================▏  387 B
+pulling 6e4c38e1172f... 100% ▕================▏ 1.1 KB
+pulling f4d24e9138dd... 100% ▕================▏  148 B
+pulling a85fe2a2e58e... 100% ▕================▏  487 B
+verifying sha256 digest 
+writing manifest 
+success 
+&gt;&gt;&gt; Send a message (/? for help)
+/bye
+</code></pre>
+<p>也可以通过<code>ollama pull deepseek-r1:1.5b</code>命令只下载模型。下载后可以通过<code>ollama list</code>查看本地有哪些模型：</p>
+<pre><code>$ ollama list
+NAME                ID              SIZE      MODIFIED    
+deepseek-r1:1.5b    a42b25d8c10a    1.1 GB    2 weeks ago    
+$
+</code></pre>
+<h2>1.2 运行大模型</h2>
+<p>通过<code>ollama run</code>命令可以直接执行大模型：</p>
+<pre><code>$ ollama run deepseek-r1:1.5b
+&gt;&gt;&gt; hello deepseek
+&lt;think&gt;
+
+&lt;/think&gt;
+
+Hello! How can I assist you today? 😊
+
+&gt;&gt;&gt; /bye
+$
+</code></pre>
+<p>这其实是一个命令行客户端，客户端将指令发送到本地的ollama后台服务进程，后台服务启动执行大模型，然后再将返回的结果显示在命令行界面。</p>
+<p>我们终于可以自己跑大语言模型了：不仅不花钱也不怕断网，关键是草根码农在前AI时代也能持有一点点的生产资料。</p>
+<h2>1.3 停止运行大模型</h2>
+<p>当我们退出<code>ollama run</code>命令后，模型依然会在后台运行。可以通过<code>ollama ps</code>命令查看运行的模型：</p>
+<pre><code>$ ollama ps
+NAME                ID              SIZE      PROCESSOR    UNTIL
+deepseek-r1:1.5b    a42b25d8c10a    1.6 GB    100% CPU     3 minutes from now
+$
+</code></pre>
+<p>因为运行模型需要大量的CPU资料，因此不需要的话最好通过<code>ollama stop</code>命令停止：</p>
+<pre><code>$ ollama stop deepseek-r1:1.5b
+$ ollama ps
+NAME    ID    SIZE    PROCESSOR    UNTIL 
+$
+</code></pre>
+<p>停止后再执行<code>ollama ps</code>就看不到了。</p>
+
+
+                        
+
+                        
+
+                        
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../preface.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                            <!-- ../ch2-rest-api/readme.html -->
+                            <a rel="next" href="../ch2-rest-api/readme.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../preface.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                
+                    <a rel="next" href="../ch2-rest-api/readme.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../static/wabook/mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../static/wabook/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../static/wabook/highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../static/wabook/book.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script type="text/javascript" charset="utf-8">
+            var pagePath = "ch1-hello-llm/readme.md"
+        </script>
+
+        <!-- Custom JS scripts -->
+        
+
+    </body>
+</html>
